@@ -1,0 +1,24 @@
+{
+  "name": "bot_meteo",
+  "version": "1.0.0",
+  "description": "��#\u0000 \u0000b\u0000o\u0000t\u0000_\u0000m\u0000e\u0000t\u0000e\u0000o\u0000\r\u0000 \u0000",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SoGameHD/bot_meteo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SoGameHD/bot_meteo/issues"
+  },
+  "homepage": "https://github.com/SoGameHD/bot_meteo#readme",
+  "dependencies": {
+    "discord.js": "^13.1.0",
+    "dotenv": "^10.0.0",
+    "node": "^16.10.0"
+  }
+}
