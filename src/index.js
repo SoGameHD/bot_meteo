@@ -1,5 +1,7 @@
-require("./services/weather.js");
 require("./client/client.js");
+require("./services/weather.js");
+
+// import { client } from './client';
 
 // const { Client, Intents } = require('discord.js');
 // require('dotenv').config();
@@ -9,7 +11,7 @@ require("./client/client.js");
 const prefixCmd = '!';
 
 client.once("ready", () => {
-    console.log("I'm ready !");
+    console.log("🌤 Weather Bot Online ☁");
 });
 
 client.on("message", msg => {
