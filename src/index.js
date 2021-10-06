@@ -1,10 +1,14 @@
+const client = require("./client/client.js");
 require("./services/weather.js");
+<<<<<<< HEAD
 const client=require("./client/client.js");
+=======
+>>>>>>> c4ab72aeb6ade927354b09f265b1bf3bd8e97338
 
 const prefixCmd = '!';
 
-client.once("ready", () => {
-    console.log("I'm ready !");
+client.on ("ready", () => {
+    console.log("🌤 Weather Bot Online ☁");
 });
 
 client.on("message", msg => {
@@ -18,6 +22,7 @@ client.on("message", msg => {
         msg.channel.send("Voici la météo du jour !");
     }
 
+<<<<<<< HEAD
 });
 
 // const userAction = async () => {
@@ -26,3 +31,6 @@ client.on("message", msg => {
 //   }
 
 
+=======
+});
+>>>>>>> c4ab72aeb6ade927354b09f265b1bf3bd8e97338
