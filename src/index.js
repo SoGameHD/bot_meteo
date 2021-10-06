@@ -1,16 +1,9 @@
-require("./client/client.js");
+const client = require("./client/client.js");
 require("./services/weather.js");
 
-// import { client } from './client';
-
-// const { Client, Intents } = require('discord.js');
-// require('dotenv').config();
-// const token = process.env.DISCORD_TOKEN;
-
-// const client = new Client({ intents: [Intents.FLAGS.GUILDS, Intents.FLAGS.GUILD_MESSAGES] });
 const prefixCmd = '!';
 
-client.once("ready", () => {
+client.on ("ready", () => {
     console.log("🌤 Weather Bot Online ☁");
 });
 
@@ -26,10 +19,3 @@ client.on("message", msg => {
     }
 
 });
-
-// const userAction = async () => {
-//     const response = await fetch('https://openweathermap.org/api');
-//     const myJson = await response.json(); //extract JSON from the http response  
-//   }
-
-// client.login(token);
