@@ -1,9 +1,6 @@
+const { count } = require("console");
 const client = require("./client/client.js");
 require("./services/weather.js");
-<<<<<<< HEAD
-const client=require("./client/client.js");
-=======
->>>>>>> c4ab72aeb6ade927354b09f265b1bf3bd8e97338
 
 const prefixCmd = '!';
 
@@ -14,23 +11,20 @@ client.on ("ready", () => {
 client.on("message", msg => {
 
     if(!msg.content.startsWith(prefixCmd) || msg.author.bot) return
-
-    const args = msg.content.slice(prefixCmd.length).trim().split(/ +/);
+   
+    const args = msg.content.trim().split(/ +/g);
     const command = args.shift().toLowerCase();
+    if (command === 'help') {
+        msg.reply('Bien le bonjour ! Ce bot discord est là pour indiquer la météo ! Lancez !weather [Votre ville] pour trouver la météo de la ville en question !');
+      }
+    
+    if (command === "weather") {
+        
+       
+        //var montruc = JSON.parse(country);
 
-    if (command === "dailymeteo") {
-        msg.channel.send("Voici la météo du jour !");
+        msg.reply("Voici la météo du jour à "+args);
     }
 
-<<<<<<< HEAD
 });
 
-// const userAction = async () => {
-//     const response = await fetch('https://openweathermap.org/api');
-//     const myJson = await response.json(); //extract JSON from the http response  
-//   }
-
-
-=======
-});
->>>>>>> c4ab72aeb6ade927354b09f265b1bf3bd8e97338
