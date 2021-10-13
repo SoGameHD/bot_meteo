@@ -40,6 +40,8 @@ client.on("message", msg => {
 
         msg.reply(`Voici le temps qu'il fait à ${villeNormalise} :`);
         console.log(directionVent)
+
+        //====================== TODO : rendre le code d'en dessous lisible, et pas un truc qui arrache les yeux (Faire un JSON qui pourra pick en fonction de l'angle ?)======
         switch (directionVent) {
             case 0:
          msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté plein Est`)
@@ -120,7 +122,7 @@ client.on("message", msg => {
         
         }else if(directionVent>300&&directionVent<330){
             msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Sud-Est`)
-          
+          //=====================================================================================================
          }
 
      })
@@ -129,7 +131,6 @@ client.on("message", msg => {
 
      
      
-     //  http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=
     }
 
 });
