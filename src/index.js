@@ -1,4 +1,3 @@
-const { count } = require("console");
 const client = require("./client/client.js");
 require("./services/weather.js");
 
