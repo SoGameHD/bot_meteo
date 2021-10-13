@@ -17,8 +17,10 @@
   },
   "homepage": "https://github.com/SoGameHD/bot_meteo#readme",
   "dependencies": {
+    "axios": "^0.23.0",
     "discord.js": "^13.1.0",
     "dotenv": "^10.0.0",
-    "node": "^16.10.0"
+    "node": "^16.10.0",
+    "openweather-apis": "^4.4.2"
   }
 }

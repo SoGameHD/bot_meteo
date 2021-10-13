@@ -1,7 +1,6 @@
 const client = require("./client/client.js");
 const w_token = process.env.WEATHER_TOKEN;
-var axios = require('axios');
-
+const weather = require('openweather-apis');
 
 const prefixCmd = '!';
 
@@ -16,8 +15,8 @@ client.on("message", msg => {
     const args = msg.content.slice(prefixCmd.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
-    if (command === "dailymeteo") {
-        msg.messageCreate("Voici la météo du jour !");
+    if (command === "help") {
+        msg.messageCreate("Ce bot te dis la météo du jour, où tu veux ! Pour me lancer, fait !t [ta ville] \nSi jamais tu ne tombe pas dessus du premier coup, précise le pays !");
         console.log(args);
     }
     if(command==="temps"){
@@ -25,23 +24,111 @@ client.on("message", msg => {
 
     }
     if(command==="t"){
-     const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());//le truc en chinois de replace à uppercase c'est pour faire un capitalize
+     
+        const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());//le truc en chinois de 'replace' à 'uppercase' c'est pour faire un capitalize
     
-     axios
-        .get('http://api.openweathermap.org/data/2.5/weather',{
-            params:{
-                q:villeNormalise,
-                appid:w_token
-            }
-        })
-        .then(response=>{
-            console.log(apiData.data);
+     weather.setLang('FR');
+     weather.setUnits('metric');
+     weather.setAPPID(w_token);
+     weather.setCity(villeNormalise);
+
+     weather.getAllWeather(function(error, resApi){
+         if(error) console.error(error);
+
+        const vent=resApi['wind']['speed'];
+        const directionVent=resApi['wind']['deg'];
+
+        msg.reply(`Voici le temps qu'il fait à ${villeNormalise} :`);
+        console.log(directionVent)
+        switch (directionVent) {
+            case 0:
+         msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté plein Est`)
+               
+                break;
+            case 30:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Est/Nord-Est`)
+                      
+             break;
+            
+             case 60:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Nord/Nord-Est`)
+                      
+             break;
+             case 120:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Nord/Nord-Ouest`)
+                      
+             break;
+             case 150:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Ouest/Nord-Ouest`)
+                      
+             break;
+             case 180:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté plein Ouest`)
+                      
+             break;
+             case 210:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Ouest/Sud-Ouest`)
+                      
+             break;
+             
+             case 240:
+             msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Sud/Sud-Ouest`)
+                       
+              break;
+              case 270:
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté plein Sud`)
+                      
+             break;
+             case 300:
+                msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Sud/Sud-Est`)
+                          
+                 break;
+            case 330:
+                msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Est/Sud-Est`)
+                          
+            break;
+            case 360:
+                msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté plein Est`)
+                          
+                 break;
+            default:
+                break;
+        }
+         
+         if (directionVent<30 && directionVent>0||directionVent>330&&directionVent<360) {//Vent orienté Est
+         msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Est`)
+             
+         } else if(directionVent>30&&directionVent<60) {
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Nord-Est.`)
+         
+        } else if(directionVent>60&&directionVent<120){//Nord
+            
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Nord`)
+
+         }else if(directionVent>120&&directionVent<150){
+            
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Nord-Ouest`)
+         
+        }else if(directionVent>150&&directionVent<210){
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Ouest`)
         
-        });
+        }else if(directionVent>210&&directionVent<240){
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Sud-Ouest`)
+        
+        }else if(directionVent>240&&directionVent<300){
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Sud`)
+        
+        }else if(directionVent>300&&directionVent<330){
+            msg.reply(`Niveau vent, on est à ${vent} noeuds, et on est plus orienté Sud-Est`)
+          
+         }
+
+     })
+        
 
 
      
-     msg.reply(`Voici le temps qu'il fait à ${villeNormalise} :`);
+     
      //  http://api.openweathermap.org/data/2.5/forecast?id=524901&appid=
     }
 
