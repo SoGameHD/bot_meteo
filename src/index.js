@@ -30,8 +30,8 @@ client.on("message", msg => {
     if(command==="t"){
      
         const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());//le truc en chinois de 'replace' à 'uppercase' c'est pour faire un capitalize
-    
-     weather.setLang('FR');
+
+        weather.setLang('FR');
      weather.setUnits('metric');
      weather.setAPPID(w_token);
      weather.setCity(villeNormalise);
@@ -51,8 +51,7 @@ client.on("message", msg => {
         //${ptiteBlague[ventHumour]} à copier dans la phrase pour donner de l'humour au bot
         
         
-        msg.reply(`Voici le temps qu'il fait à ${villeNormalise}, ${pays[resApi['sys']['country']]} :`);
-        msg.reply(`Niveau vent, on est à ${vent} noeuds, avec une orientation **${windDirection[directionVentNormalise]}**`);
+        msg.reply(`Voici le temps qu'il fait à ${villeNormalise}, ${pays[resApi['sys']['country']]} :\nNiveau vent, on est à ${vent} noeuds, avec une orientation **${windDirection[directionVentNormalise]}**`);
         //msg.reply(presentation.image(msg, villeNormalise));
 
      })
