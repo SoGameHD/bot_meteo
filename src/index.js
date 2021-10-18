@@ -20,7 +20,7 @@ client.on("message", msg => {
     const command = args.shift().toLowerCase();
 
     if (command === "help") {
-        msg.reply("Ce bot te dis la météo du jour, où tu veux ! Pour me lancer, fait !t [ta ville] \nSi jamais tu ne tombe pas dessus du premier coup, précise le pays !");
+        msg.reply("Ce bot te dis la météo du jour, où tu veux ! Pour me lancer, fait !t [ta ville] \nSi jamais tu ne tombe pas dessus du premier coup, précise le code postal !");
         console.log(args);
     }
     if(command==="temps"){
@@ -28,11 +28,14 @@ client.on("message", msg => {
 
     }
     if(command==="t"){
-     
         const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());//le truc en chinois de 'replace' à 'uppercase' c'est pour faire un capitalize
-        const paysNormalise=args[1].toString().toLowerCase().replace(/^\w/, (p) => p.toUpperCase());
-
-        weather.setLang('FR');
+        
+        if(args[1]){
+            paysNormalise=args[1].toString().toLowerCase().replace(/^\w/, (p) => p.toUpperCase());
+            weather.setZipCode(paysNormalise);
+        }
+        
+        weather.setLang('fr');
      weather.setUnits('metric');
      weather.setAPPID(w_token);
      weather.setCity(villeNormalise);
@@ -49,7 +52,7 @@ client.on("message", msg => {
         var directionVent=resApi['wind']['deg'];
         
         const directionVentNormalise = Math.round(directionVent/10)*10;
-        const ventHumour=vent|0;//Double to int en gros
+        //const ventHumour=vent|0;//Double to int en gros
         //${ptiteBlague[ventHumour]} à copier dans la phrase pour donner de l'humour au bot
         
         
