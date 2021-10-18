@@ -30,11 +30,13 @@ client.on("message", msg => {
     if(command==="t"){
      
         const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());//le truc en chinois de 'replace' à 'uppercase' c'est pour faire un capitalize
+        const paysNormalise=args[1].toString().toLowerCase().replace(/^\w/, (p) => p.toUpperCase());
 
         weather.setLang('FR');
      weather.setUnits('metric');
      weather.setAPPID(w_token);
      weather.setCity(villeNormalise);
+     
 
      weather.getAllWeather(function(error, resApi){
          
