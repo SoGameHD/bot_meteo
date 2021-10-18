@@ -1,5 +1,5 @@
-const getWeather = require("../services/weather.js");
 const axios = require("axios");
+const { MessageEmbed } = require("discord.js");
 const token  = process.env.WEATHER_TOKEN;
 
 const prefixCmd = '!';
@@ -10,28 +10,19 @@ const message = (msg) => {
     const args = msg.content.slice(prefixCmd.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
 
+    //!weather
     if (command === "weather") {
         msg.reply("Voici la météo du jour !");
     }
+
+    //!help
     else if(command === "help") {
-        // msg.reply(getWeather);
-        axios
-            .get('http://api.openweathermap.org/data/2.5/weather', {
-                params: {
-                    q: args.join(),
-                    APPID: token
-                }
-            })
-            .then(response => {
-                let apiData = response;
-                let maxTemp = apiData.data; 
-                let cityName = args;
-                console.log(apiData);
-                msg.reply("cityname:" + cityName);
-                
-            }).catch((error) => console.log(error))
+        const embed = new MessageEmbed()
+            .setTitle('Liste des commandes')
+            .setDescription('Test')
+
+        msg.channel.send({ embeds: [embed]});
     }
 };
-
 
 module.exports = message;
