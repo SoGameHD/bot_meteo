@@ -31,7 +31,7 @@ client.on("message", msg => {
         const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());//le truc en chinois de 'replace' à 'uppercase' c'est pour faire un capitalize
         
         if(args[1]){
-            paysNormalise=args[1].toString().toLowerCase().replace(/^\w/, (p) => p.toUpperCase());
+            const paysNormalise=args[1].toString();
             weather.setZipCode(paysNormalise);
         }
         
@@ -50,6 +50,7 @@ client.on("message", msg => {
         const vent =resApi['wind']['speed'];
         const rafale=resApi['wind']['gust'];
         var directionVent=resApi['wind']['deg'];
+        const humidite=resApi['']
         
         const directionVentNormalise = Math.round(directionVent/10)*10;
         //const ventHumour=vent|0;//Double to int en gros
