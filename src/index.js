@@ -2,7 +2,6 @@ const client = require("./client/client.js");
 const w_token = process.env.WEATHER_TOKEN;
 const weather = require('openweather-apis');
 const windDirection=require('./utils/windDirection.json')
-const presentation=require('./services/imageSearch.js')
 const pays=require('./utils/countries.json');
 
 
