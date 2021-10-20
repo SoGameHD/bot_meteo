@@ -56,7 +56,7 @@ function weatherCmd(msg, args) {
                { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
                { name: ` - Temps général :`, value: `On part sur un temps ${clouds}` },
                { name: `🌡️ - Temperature :`, value: `Il fait un petit ${temp}°C` },
-               { name: `💨 - Vent :`, value: `Un joli vent de ${vent} m/s (ou ${vent*3.6}km/h pour les intimes ;))` },
+               { name: `💨 - Vent :`, value: `Un joli vent de ${vent} m/s (ou ${(Math.round(vent*3.6))}km/h pour les intimes ;))` },
                { name: `⏬ - Pression :`, value: `Avec une pression à ${pressure}hPa, on va la boire !` },
            )
            .setImage(cities[villeNormalise]);
@@ -93,7 +93,7 @@ function wind(msg, args) {
             .addFields(
 
                 { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
-                { name: '💨 - Force du vent :', value: `${vent} m/s ou ${vent*3.6} ou ${(vent*3.6)/1.852} noeuds` },
+                { name: '💨 - Force du vent :', value: `${vent} m/s ou ${(Math.round(vent*3.6))} km/h ou ${(Math.round((vent*3.6)/1.852))} noeuds` },
                 { name: '🧭 - Orientation  :', value: `${windDirection[directionVentNormalise]}` }
             )
             .setImage(cities[villeNormalise]);
