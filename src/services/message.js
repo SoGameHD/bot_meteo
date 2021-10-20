@@ -54,7 +54,7 @@ function weatherCmd(msg, args) {
            .addFields(
 
                { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
-               { name: ` - Temps général :`, value: `On part sur ${clouds}` },
+               { name: ` - Temps général :`, value: `On part sur un temps ${clouds}` },
                { name: `🌡️ - Temperature :`, value: `Il fait un petit ${temp}°C` },
                { name: `💨 - Vent :`, value: `Un joli vent de ${vent} m/s (ou ${vent*3.6}km/h pour les intimes ;))` },
                { name: `⏬ - Pression :`, value: `Avec une pression à ${pressure}hPa, on va la boire !` },
@@ -158,6 +158,7 @@ function rain(msg, args) {
         console.log(resApi); // Réponse de l'API dans le terminal
 
         const hum = resApi['main']['humidity'];
+        const pression = resApi['main']['pressure'];
         
         // Mise en forme du message de réponse pour l'utilisateur
         const embed = new MessageEmbed()
@@ -166,6 +167,7 @@ function rain(msg, args) {
             .addFields(
                 { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
                 { name: ':sweat_drops: - Humidité :', value:`${hum}%`},
+                { name: `⏬ - Pression :`, value: `Avec une pression à ${pression}hPa, on va la boire !` },
             )
             .setImage(cities[villeNormalise]);
 
