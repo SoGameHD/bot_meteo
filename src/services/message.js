@@ -1,5 +1,5 @@
 const { MessageEmbed } = require("discord.js");                   // Ici, on viens initialiser toutes les variables utiles
-const w_token  = process.env.WEATHER_TOKEN;                       // à nos fonctions (e)
+const w_token  = process.env.WEATHER_TOKEN;                       // à nos fonctions (ex. le token, )
 const weather = require('openweather-apis');                      //
 const windDirection = require('../utils/windDirection.json');     //
 const pays = require('../utils/countries.json');                  //
