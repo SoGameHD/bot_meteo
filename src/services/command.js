@@ -1,73 +1,53 @@
-const { MessageEmbed } = require("discord.js");
-const w_token  = process.env.WEATHER_TOKEN;
-const weather = require('openweather-apis');
-const windDirection = require('../utils/windDirection.json');
-const pays = require('../utils/countries.json');
-const cities = require('../utils/cities.json');
 const prefixCmd = '!';
-import {helpcmd, wind} from './message.js';
+const {helpCmd, weatherCmd, wind, temp, rain} = require('./message.js'); // Importe toutes les fonctions nécessaires au fonctionnement des commandes
 
 const message = (msg) => {
     if(!msg.content.startsWith(prefixCmd) || msg.author.bot) return
 
     const args = msg.content.slice(prefixCmd.length).trim().split(/ +/);
     const command = args.shift().toLowerCase();
-
-    //!help
-    if(command === "help") {
-        helpcmd();
-        }
-
-    // !weather, commande général et principal qui appel toutes les informations concernant la ville donnée
-    if(command==="weather"){
-        const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase()); // le truc en chinois de 'replace' à 'uppercase' c'est pour faire un capitalize
-        
-        if(args[1]){
-            const paysNormalise=args[1].toString();
-            weather.setZipCode(paysNormalise);
-        }
     
-     weather.setLang('fr');
-     weather.setUnits('metric');
-     weather.setAPPID(w_token);
-     weather.setCity(villeNormalise);
-     
-
-     weather.getAllWeather(function(error, resApi){
-         
-        if(error) console.error(error);
-
-        console.log(resApi);//Response
-
-        const vent =resApi['wind']['speed'];
-        const rafale=resApi['wind']['gust'];
-        var directionVent=resApi['wind']['deg'];
-        const humidite=resApi['']
-        
-        const directionVentNormalise = Math.round(directionVent/10)*10;
-        //const ventHumour=vent|0;//Double to int en gros
-        //${ptiteBlague[ventHumour]} à copier dans la phrase pour donner de l'humour au bot
-        
-        const embed = new MessageEmbed()
-            .setTitle(`Météo de ${villeNormalise}`)
-            .setDescription(`Voici le temps qu'il fait à ${villeNormalise}, ${pays[resApi['sys']['country']]}`)
-            .addFields(
-
-                { name: '\u200B', value: '\u200B' },
-                { name: '!weather [ta ville]', value: 'Précisez le code postal de la ville si nécessaire' },
-            )
-            .setImage(cities[villeNormalise]);
-
-        msg.channel.send({ embeds: [embed]});
-     })
-     
+    // !help, liste l'intégralité des commandes disponibles et fonctionnels du Weather Bot
+    if(command === "help") {
+       helpCmd(msg)
     }
 
-    // !weather, commande général et principal qui appel toutes les informations concernant la ville donnée
-    if(command==="wind"){
-        wind()
-     
+    // !weather
+    if(command === "weather") {
+       try {
+         weatherCmd(msg, args);  // Appelle la fonction weather défini dans message.js
+       } catch (error) {
+        msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");
+           
+       }
+        
     }
-};
+
+    // !wind
+    if(command === "wind") {
+       try {
+        wind(msg, args); // Appelle la fonction wind défini dans message.js
+    }
+       catch (error) {
+        msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");
+       
+    }
+    }
+
+    // !temp
+    if(command === "temp") {
+       try{
+        temp(msg, args); // Appelle la fonction temp (température) défini dans message.js
+
+       }catch{
+        msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");
+
+       }
+    }
+    // !rain
+    if(command === "rain") {
+        rain(msg, args); // Appelle la fonction rain défini dans message.js
+    }
+}
 
 module.exports = message;

@@ -16,8 +16,7 @@ function helpCmd(msg) {
             { name: '!weather `[ta ville]`', value: 'Donne toutes les informations possibles, mais plus généralement' },
             { name: '!wind `[ta ville]`', value: 'Donne la vitesse et la direction du vent dans la ville donnée' },
             { name: '!temp `[ta ville]`', value: 'Donne la température dans la ville donnée' },
-            { name: '!hum `[ta ville]`', value: 'Donne le taux d\'humidité dans la ville donnée' },
-            { name: '!pres `[ta ville]`', value: 'Donne le taux de pression dans la ville donnée' }
+            { name: '!rain `[ta ville]`', value: 'Donne la pluie, le taux d\'humidité ainsi que la pression dans la ville donnée' }
         );
     msg.channel.send({ embeds: [embed] });
 }
@@ -38,9 +37,9 @@ function weatherCmd(msg, args) {
 
        console.log(resApi); // Réponse de l'API dans le terminal
 
-       const vent = resApi['wind']['speed']; // En noeuds
+       const vent = resApi['wind']['speed']; // En m/s
        const temp = resApi['main']['feels_like']; // En °C
-       const clouds = resApi['weather']['description']; // String basique
+       const clouds = resApi.weather[0].description; // String basique
        const pressure = resApi['main']['pressure']; // En hPa
        
        //var weatherIcon = resApi.weather[0].icon;// Trouve l'icone dynamique du temps 
@@ -48,7 +47,6 @@ function weatherCmd(msg, args) {
        //const weatherSmiley =`http://openweathermap.org/img/wn/${weatherIcon}@2x.png`;//Lien --> image en question dans le lien
        
        
-       console.log(weatherIcon);
        // Mise en forme du message de réponse pour l'utilisateur
        const embed = new MessageEmbed()
            .setTitle(`Météo de ${villeNormalise}`)
@@ -56,9 +54,9 @@ function weatherCmd(msg, args) {
            .addFields(
 
                { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
-               { name: `${weatherSmiley} - Temps général :`, value: `On part sur ${clouds}` },
+               { name: ` - Temps général :`, value: `On part sur ${clouds}` },
                { name: `🌡️ - Temperature :`, value: `Il fait un petit ${temp}°C` },
-               { name: `💨 - Vent :`, value: `Un joli vent de ${vent} noeuds (ou ${vent*1.852}km/h pour les intimes ;))` },
+               { name: `💨 - Vent :`, value: `Un joli vent de ${vent} m/s (ou ${vent*3.6}km/h pour les intimes ;))` },
                { name: `⏬ - Pression :`, value: `Avec une pression à ${pressure}hPa, on va la boire !` },
            )
            .setImage(cities[villeNormalise]);
@@ -67,7 +65,7 @@ function weatherCmd(msg, args) {
     })
 }
 
-// Fonction wind qui permet d'afficher les informations de la force et de la direction du vent que l'API a envoyer
+// Fonction wind qui permet d'afficher les informations de la force et de la direction du vent
 function wind(msg, args) {   
     // Permet de transformer la saisi de l'utilisateur en saisi conforme pour l'API
     // Exemple : Si l'utilisateur saisi "brest", "BREST", ou encore "bREst" --> l'API prendre "Brest" comme argument
@@ -95,7 +93,7 @@ function wind(msg, args) {
             .addFields(
 
                 { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
-                { name: '💨 - Force du vent :', value: `${vent} noeuds\n` },
+                { name: '💨 - Force du vent :', value: `${vent} m/s ou ${vent*3.6} ou ${(vent*3.6)/1.852} noeuds` },
                 { name: '🧭 - Orientation  :', value: `${windDirection[directionVentNormalise]}` }
             )
             .setImage(cities[villeNormalise]);
@@ -105,7 +103,7 @@ function wind(msg, args) {
      })
 }
 
-// Fonction temp qui permet d'afficher les différentes informations sur la température que l'API a envoyer
+// Fonction temp qui permet d'afficher les différentes informations sur la température
 function temp(msg, args) {
     // Permet de transformer la saisi de l'utilisateur en saisi conforme pour l'API
     // Exemple : Si l'utilisateur saisi "brest", "BREST", ou encore "bREst" --> l'API prendre "Brest" comme argument
@@ -143,8 +141,8 @@ function temp(msg, args) {
     })
 }
 
-// Fonction hum qui permet d'afficher les différentes informations sur l'humidité que l'API a envoyer
-function hum(msg, args) {
+// Fonction rain qui permet d'afficher les différentes informations sur la pluie, l'humidité, et la pression
+function rain(msg, args) {
     // Permet de transformer la saisi de l'utilisateur en saisi conforme pour l'API
     // Exemple : Si l'utilisateur saisi "brest", "BREST", ou encore "bREst" --> l'API prendre "Brest" comme argument
     const villeNormalise=args[0].toString().toLowerCase().replace(/^\w/, (c) => c.toUpperCase());
@@ -175,4 +173,4 @@ function hum(msg, args) {
     })
 }
 
-module.exports = {helpCmd, weatherCmd, wind, temp, hum}; // Exporte les différentes fonctions du fichier
+module.exports = {helpCmd, weatherCmd, wind, temp, rain}; // Exporte les différentes fonctions du fichier

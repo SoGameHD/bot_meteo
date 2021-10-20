@@ -2,7 +2,7 @@ const client = require("./client/client.js");
 const message = require("./services/command.js");
 
 client.on ("ready", () => {
-    console.log("🌤 Weather Bot Online ☁");
+    console.log("🌤  Weather Bot Online ☁");
 });
 
-client.on("command", message);
+client.on("message", message);
