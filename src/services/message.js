@@ -13,10 +13,10 @@ function helpCmd(msg) {
         .setDescription('Voici la listes des commandes disponibles et fonctionnel pour notre bot :')
         .addFields(
             { name: '\u200B', value: '\u200B' }, // Passages de lignes pour créer de l'espace
-            { name: '!weather `[ta ville]`', value: 'Donne toutes les informations possibles, mais plus généralement' },
-            { name: '!wind `[ta ville]`', value: 'Donne la vitesse et la direction du vent dans la ville donnée' },
-            { name: '!temp `[ta ville]`', value: 'Donne la température dans la ville donnée' },
-            { name: '!rain `[ta ville]`', value: 'Donne la pluie, le taux d\'humidité ainsi que la pression dans la ville donnée' }
+            { name: ':/weather `[ta ville]`', value: 'Donne toutes les informations possibles, mais plus généralement' },
+            { name: ':/wind `[ta ville]`', value: 'Donne la vitesse et la direction du vent dans la ville donnée' },
+            { name: ':/temp `[ta ville]`', value: 'Donne la température dans la ville donnée' },
+            { name: ':/rain `[ta ville]`', value: 'Donne la pluie, le taux d\'humidité ainsi que la pression dans la ville donnée' }
         );
     msg.channel.send({ embeds: [embed] });
 }

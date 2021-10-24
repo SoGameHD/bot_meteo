@@ -1,4 +1,4 @@
-const prefixCmd = '!';
+const prefixCmd = ':/';
 const {helpCmd, weatherCmd, wind, temp, rain} = require('./message.js'); // Importe toutes les fonctions nécessaires au fonctionnement des commandes
 
 const message = (msg) => {
@@ -17,7 +17,7 @@ const message = (msg) => {
       try {
          weatherCmd(msg, args);  // Appelle la fonction weather défini dans message.js
       } catch (error) {
-         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");    
+         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `:/help`");    
       }     
    }
 
@@ -26,7 +26,7 @@ const message = (msg) => {
       try {
          wind(msg, args); // Appelle la fonction wind défini dans message.js
       } catch (error) {
-         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");
+         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `:/help`");
       }
    }
 
@@ -35,7 +35,7 @@ const message = (msg) => {
       try{
          temp(msg, args); // Appelle la fonction temp (température) défini dans message.js
       } catch (error) {
-         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");
+         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `:/help`");
       }
    }
 
@@ -44,7 +44,7 @@ const message = (msg) => {
       try{
          rain(msg, args); // Appelle la fonction rain défini dans message.js
       } catch (error) {
-         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `!help`");
+         msg.reply("Désolé, je n'ai pas compris ta commande ! Si tu veux plus d'informations, fait `:/help`");
       }
    }
 }
