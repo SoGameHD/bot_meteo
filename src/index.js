@@ -2,8 +2,9 @@ const client = require("./client/client.js");
 const w_token = process.env.WEATHER_TOKEN;
 const weather = require('openweather-apis');
 const windDirection=require('./utils/windDirection.json')
-const presentation=require('./services/imageSearch.js')
 const pays=require('./utils/countries.json');
+const { callbackify } = require("util");
+const { createBrotliCompress } = require("zlib");
 
 
 const prefixCmd = '!';
@@ -35,7 +36,7 @@ client.on("message", msg => {
             weather.setZipCode(paysNormalise);
         }
         
-        weather.setLang('fr');
+    weather.setLang('fr');
      weather.setUnits('metric');
      weather.setAPPID(w_token);
      weather.setCity(villeNormalise);
@@ -43,10 +44,15 @@ client.on("message", msg => {
 
      weather.getAllWeather(function(error, resApi){
          
-        if(error) console.error(error);
+        if(error){
+            console.error(error);            
+        }
 
 
         console.log(resApi);
+        if(resApi==null){
+            msg.reply("Désolé il y eu un soucis, essaye avec une autre ville")
+        }
         const vent =resApi['wind']['speed'];
         const rafale=resApi['wind']['gust'];
         var directionVent=resApi['wind']['deg'];
